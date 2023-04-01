@@ -1,10 +1,10 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const Counter = await ethers.getContractFactory("Counter");
-  const counter = await Counter.deploy();
+  const WETH9Factory = await ethers.getContractFactory("WETH9");
+  const weth9 = await WETH9Factory.deploy();
 
-  await counter.deployed();
+  await weth9.deployed();
 }
 
 // We recommend this pattern to be able to use async/await everywhere
