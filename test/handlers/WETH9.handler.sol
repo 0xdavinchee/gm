@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
 import {WETH9} from "../../src/WETH9.sol";
+import {ForcePush} from "../attack/ForcePush.sol";
 import "../libs/AddressesSetLibrary.sol";
 
 /// @title WETH9Handler
@@ -21,6 +22,7 @@ contract WETH9Handler is Test {
 
     uint256 public ghost_depositSum;
     uint256 public ghost_withdrawSum;
+    uint256 public ghost_forcePushSum;
     uint256 public ghost_zeroWithdrawalsCount;
     uint256 public ghost_zeroApprovalCount;
 
@@ -121,6 +123,18 @@ contract WETH9Handler is Test {
         (bool s,) = to.call{value: amount}("");
         require(s, "pay() failed");
     }
+
+    /**
+     * Attack
+     */
+    function forcePush(
+        uint256 amount
+    ) public countCall("forcePush") {
+        amount = bound(amount, 0, address(this).balance);
+        new ForcePush{ value: amount }(address(weth));
+        ghost_forcePushSum += amount;
+    }
+
 
     /**
      * Actor Management

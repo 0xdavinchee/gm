@@ -13,13 +13,14 @@ contract WETH9Invariants is Test {
         weth = new WETH9();
         handler = new WETH9Handler(weth);
 
-        bytes4[] memory selectors = new bytes4[](6);
+        bytes4[] memory selectors = new bytes4[](7);
         selectors[0] = WETH9Handler.deposit.selector;
         selectors[1] = WETH9Handler.withdraw.selector;
         selectors[2] = WETH9Handler.sendFallback.selector;
         selectors[3] = WETH9Handler.approve.selector;
         selectors[4] = WETH9Handler.transfer.selector;
         selectors[5] = WETH9Handler.transferFrom.selector;
+        selectors[6] = WETH9Handler.forcePush.selector;
 
         targetSelector(FuzzSelector({addr: address(handler), selectors: selectors}));
 
@@ -42,14 +43,14 @@ contract WETH9Invariants is Test {
     // equal the sum of all the individual deposits
     // minus all the individual withdrawals
     function invariant_Solvency_Deposit() public {
-        assertEq(address(weth).balance, handler.ghost_depositSum() - handler.ghost_withdrawSum());
+        assertEq(address(weth).balance, handler.ghost_depositSum() + handler.ghost_forcePushSum() - handler.ghost_withdrawSum());
     }
 
     // The WETH contract's Ether balance should always be
     // at least as much as the sum of individual balances
     function invariant_Solvency_Balances() public {
         uint256 sumOfBalances = handler.reduceActors(0, this.accumulateBalance);
-        assertEq(address(weth).balance, sumOfBalances);
+        assertEq(address(weth).balance - handler.ghost_forcePushSum(), sumOfBalances);
     }
 
     function accumulateBalance(uint256 balance, address caller) external view returns (uint256) {

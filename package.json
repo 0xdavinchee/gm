@@ -30,6 +30,7 @@
     "@openzeppelin/contracts": "^4.8.2",
     "hardhat": "^2.13.0",
     "hardhat-contract-sizer": "^2.8.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "solhint": "^3.4.1"
   }
 }
