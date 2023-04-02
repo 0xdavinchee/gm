@@ -127,14 +127,11 @@ contract WETH9Handler is Test {
     /**
      * Attack
      */
-    function forcePush(
-        uint256 amount
-    ) public countCall("forcePush") {
+    function forcePush(uint256 amount) public countCall("forcePush") {
         amount = bound(amount, 0, address(this).balance);
         new ForcePush{ value: amount }(address(weth));
         ghost_forcePushSum += amount;
     }
-
 
     /**
      * Actor Management

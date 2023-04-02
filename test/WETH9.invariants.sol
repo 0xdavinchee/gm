@@ -43,7 +43,10 @@ contract WETH9Invariants is Test {
     // equal the sum of all the individual deposits
     // minus all the individual withdrawals
     function invariant_Solvency_Deposit() public {
-        assertEq(address(weth).balance, handler.ghost_depositSum() + handler.ghost_forcePushSum() - handler.ghost_withdrawSum());
+        assertEq(
+            address(weth).balance,
+            handler.ghost_depositSum() + handler.ghost_forcePushSum() - handler.ghost_withdrawSum()
+        );
     }
 
     // The WETH contract's Ether balance should always be
