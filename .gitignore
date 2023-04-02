@@ -26,4 +26,5 @@ cache
 artifacts
 
 # Generated
+addresses/
 lcov.info

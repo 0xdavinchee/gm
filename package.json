@@ -15,7 +15,7 @@
     "clean": "rm -rf out cache node_modules",
     "build": "hardhat compile && forge build",
     "coverage": "forge coverage --report lcov",
-    "dev": "nodemon -e sol,ts -x pnpm test",
+    "dev": "nodemon -e sol -x pnpm test",
     "fmt": "forge fmt",
     "test": "forge test -vv",
     "size": "hardhat size-contracts",
@@ -25,11 +25,12 @@
     "slither": "slither ."
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-foundry": "^1.0.0",
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "@openzeppelin/contracts": "^4.8.2",
     "hardhat": "^2.13.0",
+    "hardhat-address-exporter": "^0.0.4",
     "hardhat-contract-sizer": "^2.8.0",
+    "hardhat-preprocessor": "^0.1.5",
     "nodemon": "^2.0.22",
     "solhint": "^3.4.1"
   }
