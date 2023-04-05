@@ -1,4 +1,4 @@
-import hre, { ethers } from "hardhat";
+import hre, { ethers, upgrades } from "hardhat";
 
 async function main() {
   const WETH9Factory = await ethers.getContractFactory("WETH9");
@@ -6,7 +6,7 @@ async function main() {
 
   await hre.addressExporter.save({
     WETH9: weth9.address,
-  })
+  });
 }
 
 // We recommend this pattern to be able to use async/await everywhere

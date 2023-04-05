@@ -4,6 +4,7 @@ import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-address-exporter";
 import "hardhat-contract-sizer";
 import "hardhat-preprocessor";
+import '@openzeppelin/hardhat-upgrades';
 
 function getRemappings() {
   return fs
