@@ -21,14 +21,6 @@ library FactoryComputeLibrary {
         bytes32 salt = keccak256(abi.encode(tokenInfo_.name, tokenInfo_.symbol, tokenInfo_.decimals));
         bytes memory bytecode =
             abi.encodePacked(type(BoringToken).creationCode, abi.encode(tokenInfo_.name, tokenInfo_.symbol, tokenInfo_.decimals));
-        token = _computeAddress(factory_, salt, bytecode);
-    }
-
-    function _computeAddress(address factory_, bytes32 salt_, bytes memory bytecode_)
-        internal
-        pure
-        returns (address addr)
-    {
-        addr = address(uint160(uint256(keccak256(abi.encodePacked(hex"ff", factory_, salt_, keccak256(bytecode_))))));
+        token = address(uint160(uint256(keccak256(abi.encodePacked(hex"ff", factory_, salt, keccak256(bytecode))))));
     }
 }
